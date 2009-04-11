@@ -1,0 +1,7 @@
+= jintastic
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 Nandor Komzak. See LICENSE for details.
