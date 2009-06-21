@@ -10,7 +10,7 @@ class ActionView::Base
     if attributes.class==Symbol  
       #simple one attribute in place editor
       #in_place_editor_for @user, :name
-      attribute = attributes.to_sym
+      attribute = attributes
       input_attributes = Array(attribute)
 
     elsif attributes.values.first==:form
@@ -28,7 +28,7 @@ class ActionView::Base
       #attribute is an array
       #in_place_editor_for @user, :name=>[:name,:address]
       attribute = attributes.keys.first
-      input_attributes = attributes.values
+      input_attributes = attributes[attribute]
     end
 
     container_tag =  instance.column_for_attribute(attribute).type == :text ? :pre : :span
