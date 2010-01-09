@@ -1,6 +1,6 @@
 (function($){
   $(function(){
-		$.inPlaceEditor = {
+    $.inPlaceEditor = {
       toggle: function() {
         $([this.attribute, this.form]).toggle()
 
