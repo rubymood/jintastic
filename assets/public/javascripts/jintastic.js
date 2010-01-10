@@ -16,13 +16,12 @@
     })
 
     $('.in_place_save').live('click', function() {
-      $.inPlaceEditor.form = $(this).parent('form')
-      $.inPlaceEditor.attribute = $.inPlaceEditor.form.prev()
+      form = $(this).parents('form') // return size always must be eql 1
       $.ajax({
-        url: $.inPlaceEditor.form[0].action,
+        url: form.attr('action'),
         type: "POST",
         dataType: "script",
-        data: $.inPlaceEditor.form.serializeArray()
+        data: form.serializeArray()
       })
       return false
     })
