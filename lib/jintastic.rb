@@ -3,8 +3,8 @@ require 'formtastic'
 class ActionView::Base 
   def in_place_editor_for(path_spec_or_object, attributes, html_text = nil)
     instance = case path_spec_or_object
-      when ActiveRecord::Base: path_spec_or_object
-      when Array: path_spec_or_object.last
+      when ActiveRecord::Base then path_spec_or_object
+      when Array then path_spec_or_object.last
     end
     
     if attributes.class==Symbol  
