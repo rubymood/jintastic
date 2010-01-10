@@ -1,7 +1,7 @@
 require 'formtastic'
 
 class ActionView::Base 
-  def in_place_editor_for(path_spec_or_object, attributes)
+  def in_place_editor_for(path_spec_or_object, attributes, html_text = nil)
     instance = case path_spec_or_object
       when ActiveRecord::Base: path_spec_or_object
       when Array: path_spec_or_object.last
@@ -38,6 +38,8 @@ class ActionView::Base
 
     form_partial ||= "#{instance.class.to_s.downcase.pluralize}/form" unless input_attributes
 
+    html_text ||= instance[attribute]
+
     if instance.valid?
       form_tag_options.merge!({:html=>{:style=>"display: none"}}) 
     else
@@ -47,9 +49,8 @@ class ActionView::Base
     render :partial => 'jintastic/in_place_editor', 
            :locals => {:container_tag=>container_tag,
                      :input_attributes=>input_attributes,
-                     :attribute=>attribute,
                      :path_spec_or_object=>path_spec_or_object,
-                     :instance=>instance,
+                     :html_text=>html_text,
                      :content_tag_options=>content_tag_options,
                      :form_tag_options=>form_tag_options,
                      :form_partial=>form_partial}
