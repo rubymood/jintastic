@@ -1,13 +1,10 @@
 require 'formtastic'
 
-class ActionView::Base 
+class ActionView::Base
   def in_place_editor_for(path_spec_or_object, attributes, html_text = nil)
-    instance = case path_spec_or_object
-      when ActiveRecord::Base then path_spec_or_object
-      when Array then path_spec_or_object.last
-    end
-    
-    if attributes.class==Symbol  
+    instance = path_spec_or_object.kind_of?(Array) ? path_spec_or_object.last : path_spec_or_object
+
+    if attributes.class==Symbol
       #simple one attribute in place editor
       #in_place_editor_for @user, :name
       attribute = attributes
@@ -31,9 +28,10 @@ class ActionView::Base
       input_attributes = attributes[attribute]
     end
 
-    container_tag =  instance.column_for_attribute(attribute).type == :text ? :pre : :span
+    container_tag =  instance.respond_to?(:column_for_attribute) ?
+      instance.column_for_attribute(attribute).type == :text ? :pre : :span : :span
 
-    form_tag_options = {:id=>dom_id(path_spec_or_object, attribute)}
+    form_tag_options = {}
     content_tag_options = {:class=>'in_place_attribute'}
 
     form_partial ||= "#{instance.class.to_s.downcase.pluralize}/form" unless input_attributes
@@ -41,23 +39,23 @@ class ActionView::Base
     html_text ||= instance[attribute]
 
     if instance.valid?
-      form_tag_options.merge!({:html=>{:style=>"display: none"}}) 
+      form_tag_options.merge!({:html=>{:style=>"display: none"}})
     else
       content_tag_options.merge!({:style=>"display: none"})
     end
 
-    render :partial => 'jintastic/in_place_editor', 
+    render :partial => 'jintastic/in_place_editor',
            :locals => {:container_tag=>container_tag,
-                     :input_attributes=>input_attributes,
-                     :path_spec_or_object=>path_spec_or_object,
-                     :html_text=>html_text,
-                     :content_tag_options=>content_tag_options,
-                     :form_tag_options=>form_tag_options,
-                     :form_partial=>form_partial}
-  end   
+                       :input_attributes=>input_attributes,
+                       :path_spec_or_object=>path_spec_or_object,
+                       :html_text=>html_text,
+                       :content_tag_options=>content_tag_options,
+                       :form_tag_options=>form_tag_options,
+                       :form_partial=>form_partial}
+  end
 end
 
-# hack for assets because gems hasn't got rake tasks 
+# hack for assets because gems hasn't got rake tasks
 #
 # copy assets at every server start because after update maybe they have to update too
-FileUtils.cp_r File.join(File.dirname(__FILE__), *%w{.. assets .}), Rails.root 
+FileUtils.cp_r File.join(File.dirname(__FILE__), *%w{.. assets .}), Rails.root
