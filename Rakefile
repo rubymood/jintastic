@@ -11,7 +11,7 @@ begin
     gem.authors = ["Nandor Komzak"]
     gem.description = gem.summary
     gem.files.include FileList["{assets}/**/*"]
-    gem.add_dependency("justinfrench-formtastic")
+    gem.add_dependency("formtastic")
     gem.has_rdoc = false
   end
   Jeweler::GemcutterTasks.new
