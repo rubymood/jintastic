@@ -54,8 +54,3 @@ class ActionView::Base
                        :form_partial=>form_partial}
   end
 end
-
-# hack for assets because gems hasn't got rake tasks
-#
-# copy assets at every server start because after update maybe they have to update too
-FileUtils.cp_r File.join(File.dirname(__FILE__), *%w{.. assets .}), Rails.root

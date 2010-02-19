@@ -12,7 +12,7 @@
     $('.in_place_attribute').live('click', function() {
       $.inPlaceEditor.attribute = $(this)
       $.inPlaceEditor.form = $.inPlaceEditor.attribute.next()
-      $.inPlaceEditor.toggle() 
+      $.inPlaceEditor.toggle()
     })
 
     $('.in_place_save').live('click', function() {

@@ -1,0 +1,8 @@
+NAME
+  jintastic - Jintastic asset generator.
+
+DESCRIPTION
+  Generates javascript and partial template files for Jintastic in your Rails project.
+
+EXAMPLE
+  ./script/generate jintastic
