@@ -24,10 +24,14 @@ Add Jintastic as a dependency in your environment.rb file:
 **Plugin**
 
     script/plugin install git://github.com/rubymood/jintastic.git
+
+**After Jintastic gem or plugin installed generate jintastic assets**
+
+    script/generate jintastic
     
 ## Usage
 
-Having downloaded jQuery(>=1.3.2) include javascript files in your template: 
+Having downloaded jQuery(>=1.3.2) include jintastic in your template: 
     
     <%= javascripts_include_tag 'jquery', 'jintastic' %>
 
